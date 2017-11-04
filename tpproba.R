@@ -1,0 +1,90 @@
+#seed 20 porque aguante el 20.
+#Ejercicio 1a
+promedios_muestrales_1a <- numeric(3000)
+
+for (i in 1:3000){
+  set.seed(0)
+  muestraExp <- rexp(i, 0.25)
+  promedios_muestrales_1a[i] <- mean(muestraExp)
+}
+barplot(promedios_muestrales_1a)
+
+#Ejercicio 1b
+promedios_muestrales_1b <- numeric(3000)
+set.seed(20)
+for (i in 1:3000){
+  muestraExp <- rexp(i, 0.25)
+  promedios_muestrales_1b[i] <- mean(vectorR)
+}
+barplot(promedios_muestrales_1b)
+
+#ejercicio2
+
+promedio_muestral <- function(n){
+promedios_muestrales <- numeric(1000)
+
+for(i in 1:1000){
+  muestra <- rexp(n, 0.25)
+  promedios_muestrales[i] <- mean(muestra)
+}
+
+return(promedios_muestrales)
+}
+
+promedios_muestrales_2 <- promedio_muestral(2)
+hist(promedios_muestrales_2)
+boxplot(promedios_muestrales_2)
+qqnorm(promedios_muestrales_2)
+
+promedios_muestrales_5 <- promedio_muestral(5)
+hist(promedios_muestrales_5)
+boxplot(promedios_muestrales_5)
+qqnorm(promedios_muestrales_5)
+
+promedios_muestrales_30 <- promedio_muestral(30)
+hist(promedios_muestrales_30)
+boxplot(promedios_muestrales_30)
+qqnorm(promedios_muestrales_30)
+
+promedios_muestrales_500 <- promedio_muestral(500)
+hist(promedios_muestrales_500)
+boxplot(promedios_muestrales_500)
+qqnorm(promedios_muestrales_500)
+
+boxplot(promedios_muestrales_2,promedios_muestrales_5,promedios_muestrales_30,promedios_muestrales_500)
+
+#EJ3
+
+normalizacion <- function(promedios_muestrales){
+  esperanza_x1 <- 4
+  varianza_x1 <- 16
+  promedios_normalizados <- numeric(length(promedios_muestrales))
+  
+  for (i in 0:length(promedios_muestrales)){
+    promedios_normalizados[i] <- (promedios_muestrales[i] - esperanza_x1)/(sqrt(varianza_x1/length(promedios_muestrales)))
+  }
+  
+  return(promedios_normalizados)
+}
+
+n2 = normalizacion(promedios_muestrales_2)
+qqnorm(n2)
+
+n5 = normalizacion(promedios_muestrales_5)
+qqnorm(n5)
+
+n30 = normalizacion(promedios_muestrales_30)
+qqnorm(n30)
+
+n500 = normalizacion(promedios_muestrales_500)
+qqnorm(n500)
+
+boxplot(n2,n5,n30,n500)
+
+grilla <- seq(0,1)
+#lines(grilla, dnorm(grilla))
+hist(n2)
+hist(n5)
+hist(n30)
+hist(n500)
+
