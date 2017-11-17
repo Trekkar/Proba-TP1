@@ -76,23 +76,23 @@ boxplot(promedios_muestrales_2,promedios_muestrales_5,promedios_muestrales_30,pr
 
 #Ejercicio 3:
 
-normalizacion <- function(promedios_muestrales){
+normalizacion <- function(promedios_muestrales,a){
   esperanza_teorica <- 4
   varianza_teorica <- 16
   promedios_normalizados <- numeric(length(promedios_muestrales))
   
   for (i in 0:length(promedios_muestrales)){
-    promedios_normalizados[i] <- (promedios_muestrales[i] - esperanza_teorica)/(sqrt(varianza_teorica/length(promedios_muestrales)))
+    promedios_normalizados[i] <- (promedios_muestrales[i] - esperanza_teorica)/(sqrt(varianza_teorica/ a ))
   }
   
   return(promedios_normalizados)
 }
 
 #b) Realizar la transformacion mencionada en los 4 conjuntos de datos del ej2. 
-n2 = normalizacion(promedios_muestrales_2)
-n5 = normalizacion(promedios_muestrales_5)
-n30 = normalizacion(promedios_muestrales_30)
-n500 = normalizacion(promedios_muestrales_500)
+n2 = normalizacion(promedios_muestrales_2,2)
+n5 = normalizacion(promedios_muestrales_5,5)
+n30 = normalizacion(promedios_muestrales_30,30)
+n500 = normalizacion(promedios_muestrales_500,500)
 
 #Graficar boxplots paralelos y QQ-plots.
 qqnorm(n2)
@@ -113,14 +113,14 @@ boxplot(n2,n5,n30,n500)
 #OBS: Estan mal los parametros de la normal, tendrÃ­an que ser N(0,1) creo, pero quedaba feo asi que por las dudas lo dejo asi por ahora.
 
 hist(n2, prob=TRUE)
-curve(dnorm(x, mean=mean(n2), sd=sd(n2)), add=TRUE)
+curve(dnorm(x, mean=0, sd=1), add=TRUE)
 
 hist(n5, prob=TRUE)
-curve(dnorm(x, mean=mean(n5), sd=sd(n5)), add=TRUE)
+curve(dnorm(x, mean=0, sd=1), add=TRUE)
 
 hist(n30, prob=TRUE)
-curve(dnorm(x, mean=mean(n30), sd=sd(n30)), add=TRUE)
+curve(dnorm(x, mean=0, sd=1), add=TRUE)
 
 hist(n500, prob=TRUE)
-curve(dnorm(x, mean=mean(n500), sd=sd(n500)), add=TRUE)
+curve(dnorm(x, mean=0, sd=1), add=TRUE)
 
