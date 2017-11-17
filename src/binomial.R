@@ -3,14 +3,14 @@
 library(ggplot2)
 
 #-------------------------------------------------
-# Ejercicio 1: Realizar un grÃ¡fico de n vs mean(x_n)
+# Ejercicio 1: Realizar un grÃƒÂ¡fico de n vs mean(x_n)
 promedios_muestrales_1a <- numeric(3000)
 promedios_muestrales_1b <- numeric(3000)
 
 # CASO SEED ADENTRO DEL FOR
 for (i in 1:3000){
   set.seed(0)
-  muestraBin <- rbinom(i, 6, 0.8)                     #genero una muestra de tamaÃ±o i
+  muestraBin <- rbinom(i, 6, 0.8)                     #genero una muestra de tamaÃƒÂ±o i
   promedios_muestrales_1a[i] <- mean(muestraBin)  #calculo la media muestral
 }
 
@@ -41,7 +41,8 @@ promedio_muestral <- function(n){
 
 # a) caso n = 2
 promedios_muestrales_2 <- promedio_muestral(2)
-hist(promedios_muestrales_2)
+hist(promedios_muestrales_2,prob=TRUE)
+curve(dnorm(x, mean=mean(n2), sd=sd(n2)), add=TRUE)
 boxplot(promedios_muestrales_2)
 qqnorm(promedios_muestrales_2)
 qqline(promedios_muestrales_2)
@@ -67,7 +68,7 @@ boxplot(promedios_muestrales_500)
 qqnorm(promedios_muestrales_500)
 qqline(promedios_muestrales_500)
 
-# d) aclarar que pasa si se siguiera aumentando el tamaÃ±o de la muestra
+# d) aclarar que pasa si se siguiera aumentando el tamaÃƒÂ±o de la muestra
 
 # e) boxplot comparativo
 boxplot(promedios_muestrales_2,promedios_muestrales_5,promedios_muestrales_30,promedios_muestrales_500)
@@ -76,23 +77,23 @@ boxplot(promedios_muestrales_2,promedios_muestrales_5,promedios_muestrales_30,pr
 
 # Ejercicio 3:
 
-normalizacion <- function(promedios_muestrales){
-  esperanza_teorica <- 4
-  varianza_teorica <- 16
+normalizacion <- function(promedios_muestrales,a){
+  esperanza_teorica <- 6*0.8
+  varianza_teorica <- 6*0.8*0.2
   promedios_normalizados <- numeric(length(promedios_muestrales))
   
-  for (i in 0:length(promedios_muestrales)){
-    promedios_normalizados[i] <- (promedios_muestrales[i] - esperanza_teorica)/(sqrt(varianza_teorica/length(promedios_muestrales)))
+  for (i in 0:length(promedios_muestrales) ){
+    promedios_normalizados[i] <- (promedios_muestrales[i] - esperanza_teorica) / ( sqrt(varianza_teorica/ a ) ) 
   }
   
   return(promedios_normalizados)
 }
 
 # b) Realizar la transformacion mencionada en los 4 conjuntos de datos del ej2. 
-n2 = normalizacion(promedios_muestrales_2)
-n5 = normalizacion(promedios_muestrales_5)
-n30 = normalizacion(promedios_muestrales_30)
-n500 = normalizacion(promedios_muestrales_500)
+n2 = normalizacion(promedios_muestrales_2,2)
+n5 = normalizacion(promedios_muestrales_5,5)
+n30 = normalizacion(promedios_muestrales_30,30)
+n500 = normalizacion(promedios_muestrales_500,500)
 
 # Graficar boxplots paralelos y QQ-plots.
 qqnorm(n2)
@@ -110,16 +111,16 @@ qqline(n500)
 boxplot(n2,n5,n30,n500)
 
 # c) Realizar 4 histogramas y a cada uno de ellos superponerle la densidad de la normal estandar.
-#OBS: Estan mal los parametros de la normal, tendrÃ­an que ser N(0,1) creo, pero quedaba feo asi que por las dudas lo dejo asi por ahora.
+#OBS: Estan mal los parametros de la normal, tendrÃƒÂ­an que ser N(0,1) creo, pero quedaba feo asi que por las dudas lo dejo asi por ahora.
 
 hist(n2, prob=TRUE)
-curve(dnorm(x, mean=mean(n2), sd=sd(n2)), add=TRUE)
+curve(dnorm(x, mean=0, sd=1), add=TRUE)
 
 hist(n5, prob=TRUE)
-curve(dnorm(x, mean=mean(n5), sd=sd(n5)), add=TRUE)
+curve(dnorm(x, mean=0, sd=1), add=TRUE)
 
 hist(n30, prob=TRUE)
-curve(dnorm(x, mean=mean(n30), sd=sd(n30)), add=TRUE)
+curve(dnorm(x, mean=0, sd=1), add=TRUE)
 
 hist(n500, prob=TRUE)
-curve(dnorm(x, mean=mean(n500), sd=sd(n500)), add=TRUE)
+curve(dnorm(x, mean=0, sd=1), add=TRUE)
