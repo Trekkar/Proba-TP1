@@ -41,7 +41,7 @@ promedio_muestral <- function(n){
 
 #a) caso n = 2
 promedios_muestrales_2 <- promedio_muestral(2)
-hist(promedios_muestrales_2, , prob=TRUE)
+hist(promedios_muestrales_2)
 boxplot(promedios_muestrales_2)
 qqnorm(promedios_muestrales_2)
 qqline(promedios_muestrales_2)
